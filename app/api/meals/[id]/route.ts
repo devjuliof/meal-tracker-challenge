@@ -28,10 +28,9 @@ export async function DELETE(
 
 export async function PATCH(
   request: Request,
-  context: { params: { id: string } } // <- pegue o params aqui
+  context: { params: { id: string } }
 ) {
   const { id } = await context.params;
-  console.log(id);
 
   try {
     await connectToDatabase();

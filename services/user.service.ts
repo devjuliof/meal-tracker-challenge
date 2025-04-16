@@ -10,6 +10,13 @@ const updateUser = async (data: Partial<UserType>) => {
   return result;
 };
 
+const getUserData = async () => {
+  const response = await fetch(apiRoutes.getUserData());
+  const result = await response.json();
+  return result;
+};
+
 export const UsersService = {
   updateUser,
+  getUserData,
 };

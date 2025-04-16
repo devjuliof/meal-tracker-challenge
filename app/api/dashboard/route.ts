@@ -26,16 +26,13 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
-    // Contagem de todas as refeições do usuário
     const totalMeals = await Meal.countDocuments({ user: userId });
 
-    // Contagem de refeições favoritas
     const totalFavoriteMeals = await Meal.countDocuments({
       user: userId,
       isFavorite: true,
     });
 
-    // Obter refeições e calcular streak
     const meals = await Meal.find({ user: userId }).sort({ date: -1 });
     const mealDates = [...new Set(meals.map((meal) => meal.date))];
 

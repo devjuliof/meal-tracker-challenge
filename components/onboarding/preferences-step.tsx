@@ -1,18 +1,14 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Clock, Filter } from "lucide-react"
+import { Clock } from "lucide-react"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useOnboarding } from "@/context/onboarding-context"
 
-interface PreferencesStepProps {
-  formData: any
-  updateFormData: (data: any) => void
-  onNext?: () => void
-}
+export default function PreferencesStep() {
+  const { formData, updateFormData } = useOnboarding()
 
-export default function PreferencesStep({ formData, updateFormData, onNext }: PreferencesStepProps) {
   const [reminders, setReminders] = useState(formData.reminders || false)
   const [reminderTime, setReminderTime] = useState(formData.reminderTime || "19:00")
   const [weeklyReport, setWeeklyReport] = useState(formData.weeklyReport || true)
@@ -53,7 +49,7 @@ export default function PreferencesStep({ formData, updateFormData, onNext }: Pr
                 id="reminder-time"
                 value={reminderTime}
                 onChange={(e) => setReminderTime(e.target.value)}
-                className="chakra-input"
+                className="rounded-md border border-gray-300 px-3 py-2 text-sm"
               />
             </div>
           </div>

@@ -1,42 +1,58 @@
-"use client";
-
-import { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { LogOut, Settings, User, Utensils } from "lucide-react";
-import { Button } from "@/components/ui/button";
+"use client"
+import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
+import { LogOut, User, Utensils, BarChart } from "lucide-react"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { apiRoutes } from "@/constants/api-routes";
-import { AuthService } from "@/services/auth-service";
-import { useQuery } from 'react-query';
+} from "@/components/ui/dropdown-menu"
+import { apiRoutes } from "@/constants/api-routes"
+import { AuthService } from "@/services/auth-service"
+import { useQuery } from "react-query"
+import { cn } from "@/lib/utils"
+import { UsersService } from "@/services/user.service"
+
+const navigationItems = [
+  { name: "Dashboard", href: "/dashboard", icon: BarChart },
+]
 
 export default function DashboardHeader() {
-  const router = useRouter();
+  const router = useRouter()
+  const pathname = usePathname()
 
-  const { data: user, isLoading, isError, error } = useQuery(apiRoutes.me(), async () => {
-    const data = await AuthService.getUserFromToken();
-    return data;
-  });
+  const {
+    data: user,
+    isLoading,
+    isError,
+    error,
+  } = useQuery(apiRoutes.getUserData(), async () => {
+    const data = await UsersService.getUserData()
+    return data.user;
+  })
 
   const handleLogout = async () => {
-    await AuthService.logout();
+    await AuthService.logout()
+    router.push("/")
+  }
 
-    router.push("/");
-  };
+  const isLinkActive = (path: string) => {
+    if (path === "/dashboard") {
+      return pathname === "/dashboard"
+    }
 
-  // Verifica se está carregando ou se houve erro
+    return pathname.startsWith(path)
+  }
+
   if (isLoading) {
-    return <div>Loading...</div>; // Exibe um texto de loading
+    return <div>Loading...</div>
   }
 
   if (isError) {
-    return <div>{error instanceof Error ? error.message : "Error loading user data"}</div>; // Exibe uma mensagem de erro se falhar ao carregar os dados
+    return <div>{error instanceof Error ? error.message : "Error loading user data"}</div>
   }
 
   return (
@@ -50,24 +66,42 @@ export default function DashboardHeader() {
             <span className="font-bold">MealTracker</span>
           </Link>
           <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
-            <Link href="/dashboard" className="text-primary font-medium">
-              Dashboard
-            </Link>
-            <Link href="/dashboard/meals" className="text-muted-foreground hover:text-foreground transition-colors">
-              Meals
-            </Link>
-            <Link href="/dashboard/analytics" className="text-muted-foreground hover:text-foreground transition-colors">
-              Analytics
-            </Link>
-            <Link href="/dashboard/planning" className="text-muted-foreground hover:text-foreground transition-colors">
-              Meal Planning
-            </Link>
+            {navigationItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={cn(
+                  "flex items-center gap-1 transition-colors",
+                  isLinkActive(item.href) ? "text-primary font-medium" : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                <item.icon className="h-4 w-4" />
+                {item.name}
+              </Link>
+            ))}
           </nav>
         </div>
+
+        <div className="md:hidden flex-1 overflow-x-auto">
+          <nav className="flex items-center space-x-4 px-1">
+            {navigationItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={cn(
+                  "flex items-center gap-1 whitespace-nowrap py-2 text-sm transition-colors",
+                  isLinkActive(item.href) ? "text-primary font-medium" : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                <item.icon className="h-4 w-4" />
+                <span className="sr-only md:not-sr-only">{item.name}</span>
+              </Link>
+            ))}
+          </nav>
+        </div>
+
         <div className="ml-auto flex items-center gap-4">
-          {user && (
-            <span className="text-sm font-medium hidden md:block">Welcome, {user.name}</span>
-          )}
+          {user && <span className="text-sm font-medium hidden md:block">Welcome, {user.name}</span>}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="rounded-full">
@@ -82,9 +116,7 @@ export default function DashboardHeader() {
                 {user && (
                   <>
                     <p className="text-sm font-medium leading-none">{user.name}</p>
-                    <p className="text-xs leading-none text-muted-foreground">
-                      {user.email}
-                    </p>
+                    <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
                   </>
                 )}
               </div>
@@ -93,12 +125,6 @@ export default function DashboardHeader() {
                 <Link href="/dashboard/profile" className="flex items-center">
                   <User className="mr-2 h-4 w-4" />
                   Profile
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild className="cursor-pointer">
-                <Link href="/dashboard/settings" className="flex items-center">
-                  <Settings className="mr-2 h-4 w-4" />
-                  Settings
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -111,5 +137,5 @@ export default function DashboardHeader() {
         </div>
       </div>
     </header>
-  );
+  )
 }
