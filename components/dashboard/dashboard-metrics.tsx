@@ -94,7 +94,7 @@ export default function DashboardMetrics({ meals, dashboardData, todayCalories }
               return (
                 <div
                   key={index}
-                  className={`w-5 h-5 rounded-full flex items-center justify-center -ml-1 first:ml-0 border-2 border-white dark:border-gray-900 ${isActive ? "bg-primary" : "bg-muted"
+                  className={`w-5 h-5 rounded-full flex items-center justify-center -ml-1 first:ml-0 border-2 border-white ${isActive ? "bg-primary" : "bg-muted"
                     }`}
                 >
                   <CalendarClock

@@ -4,7 +4,7 @@ export default function MealTrackerDemo() {
   return (
     <div className="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-xl">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm"></div>
-      <div className="absolute top-8 left-8 right-8 bg-white dark:bg-gray-900 rounded-xl p-4 shadow-lg animate-float">
+      <div className="absolute top-8 left-8 right-8 bg-white rounded-xl p-4 shadow-lg animate-float">
         <div className="flex items-center justify-between mb-3">
           <h3 className="font-semibold text-lg">Refeições de Hoje</h3>
           <span className="text-sm font-medium px-2 py-1 bg-primary/10 text-primary rounded-full">1,850 kcal</span>
@@ -42,7 +42,7 @@ export default function MealTrackerDemo() {
           />
         </div>
       </div>
-      <div className="absolute bottom-8 left-8 right-8 bg-white dark:bg-gray-900 rounded-xl p-4 shadow-lg">
+      <div className="absolute bottom-8 left-8 right-8 bg-white rounded-xl p-4 shadow-lg">
         <div className="flex items-center space-x-4">
           <div className="flex-1">
             <div className="text-sm font-medium mb-1">Sequência Semanal</div>
@@ -51,7 +51,7 @@ export default function MealTrackerDemo() {
                 {[1, 2, 3, 4, 5].map((day) => (
                   <div
                     key={day}
-                    className="w-5 h-5 rounded-full bg-primary flex items-center justify-center -ml-1 first:ml-0 border-2 border-white dark:border-gray-900"
+                    className="w-5 h-5 rounded-full bg-primary flex items-center justify-center -ml-1 first:ml-0 border-2 border-white"
                   >
                     <CalendarCheck className="h-3 w-3 text-primary-foreground" />
                   </div>
@@ -59,7 +59,7 @@ export default function MealTrackerDemo() {
                 {[6, 7].map((day) => (
                   <div
                     key={day}
-                    className="w-5 h-5 rounded-full bg-muted flex items-center justify-center -ml-1 border-2 border-white dark:border-gray-900"
+                    className="w-5 h-5 rounded-full bg-muted flex items-center justify-center -ml-1 border-2 border-white"
                   >
                     <CalendarCheck className="h-3 w-3 text-muted-foreground" />
                   </div>
