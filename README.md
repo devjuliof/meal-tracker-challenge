@@ -1,5 +1,8 @@
 # Gestão de Refeições
 
+## Demo
+https://www.loom.com/share/d376ff55b25b4e96b24d98695f8b731c?sid=8d02c960-abdd-4c1b-9ba5-9082cc5a5c79
+
 ## Descrição
 Este projeto tem como objetivo gerenciar refeições diárias, onde o usuário pode registrar, visualizar, editar e excluir suas refeições. A aplicação foi desenvolvida com **Next.js** (App Router) e utiliza **MongoDB Atlas** para armazenar as informações. O objetivo principal é permitir que o usuário adicione informações detalhadas sobre cada refeição, incluindo nome, descrição, quantidade de calorias, data e hora, e o tipo de refeição (Café da manhã, Almoço, Lanche da tarde, Janta).
 
