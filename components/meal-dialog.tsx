@@ -174,19 +174,19 @@ export default function MealDialog({ open, onOpenChange, onCreateMeal, meal, mod
               {isEditMode ? (
                 <>
                   <Pencil className="mr-2 h-5 w-5 text-secondary" />
-                  Edit Meal
+                  Editar Refeição
                 </>
               ) : (
                 <>
                   <Utensils className="mr-2 h-5 w-5 text-primary" />
-                  Add New Meal
+                  Adicionar Refeição
                 </>
               )}
             </DialogTitle>
             <DialogDescription>
               {isEditMode
-                ? "Make changes to your meal. Click save when you're done."
-                : "Enter the details of your meal. Click save when you're done."}
+                ? "Faça alterações na sua refeição. Clique em salvar quando terminar."
+                : "Digite os detalhes da sua refeição. Clique em salvar quando terminar."}
             </DialogDescription>
           </DialogHeader>
         </div>
@@ -194,7 +194,7 @@ export default function MealDialog({ open, onOpenChange, onCreateMeal, meal, mod
           <div className="grid gap-4 py-4">
             <FormField
               id="name"
-              label="Name"
+              label="Nome"
               required
               value={formData.name}
               onChange={(e) => handleInputChange("name", e.target.value)}
@@ -202,7 +202,7 @@ export default function MealDialog({ open, onOpenChange, onCreateMeal, meal, mod
 
             <FormField
               id="description"
-              label="Description"
+              label="Descrição"
               value={formData.description}
               onChange={(e) => handleInputChange("description", e.target.value)}
               component={
@@ -217,7 +217,7 @@ export default function MealDialog({ open, onOpenChange, onCreateMeal, meal, mod
 
             <FormField
               id="calories"
-              label="Calories"
+              label="Calorias"
               required
               type="number"
               value={formData.calories}
@@ -244,7 +244,7 @@ export default function MealDialog({ open, onOpenChange, onCreateMeal, meal, mod
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="date" className="text-right flex items-center justify-end">
                 <CalendarClock className="mr-2 h-4 w-4 text-muted-foreground" />
-                Date
+                Data
               </Label>
               <Input
                 id="date"
@@ -260,7 +260,7 @@ export default function MealDialog({ open, onOpenChange, onCreateMeal, meal, mod
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="time" className="text-right flex items-center justify-end">
                 <Clock className="mr-2 h-4 w-4 text-muted-foreground" />
-                Time
+                Hora
               </Label>
               <Input
                 id="time"
@@ -274,7 +274,7 @@ export default function MealDialog({ open, onOpenChange, onCreateMeal, meal, mod
 
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="image" className="text-right">
-                Image
+                Imagem
               </Label>
               <div className="col-span-3">
                 <UploadComponent
@@ -293,10 +293,10 @@ export default function MealDialog({ open, onOpenChange, onCreateMeal, meal, mod
           </div>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => handleDialogClose(false)} className="rounded-full">
-              Cancel
+              Cancelar
             </Button>
             <Button disabled={isUploading} type="submit" className="rounded-full">
-              {isEditMode ? "Save Changes" : "Save Meal"}
+              {isEditMode ? "Salvar mudanças" : "Salvar refeição"}
             </Button>
           </DialogFooter>
         </form>

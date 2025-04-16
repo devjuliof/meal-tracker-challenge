@@ -101,7 +101,7 @@ export default function DashboardHeader() {
         </div>
 
         <div className="ml-auto flex items-center gap-4">
-          {user && <span className="text-sm font-medium hidden md:block">Welcome, {user.name}</span>}
+          {user && <span className="text-sm font-medium hidden md:block">Seja bem-vindo, {user.name}</span>}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="rounded-full">
@@ -124,13 +124,13 @@ export default function DashboardHeader() {
               <DropdownMenuItem asChild className="cursor-pointer">
                 <Link href="/dashboard/profile" className="flex items-center">
                   <User className="mr-2 h-4 w-4" />
-                  Profile
+                  Perfil
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-red-600">
                 <LogOut className="mr-2 h-4 w-4" />
-                Log out
+                Sair
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

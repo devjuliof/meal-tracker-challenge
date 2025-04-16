@@ -72,8 +72,8 @@ export default function DashboardMetrics({ meals, dashboardData, todayCalories }
           <div className="text-2xl font-bold">{dashboardData.totalFavoriteMeals}</div>
           <p className="text-xs text-muted-foreground mt-2">
             {dashboardData.favoriteMeals
-              ? "Quick access to your favorite meals"
-              : "Mark meals as favorites for quick access"}
+              ? "Acesso rápido à sua refeição favorita.s"
+              : "Marque as refeições como favoritas para acesso rápido."}
           </p>
         </CardContent>
       </Card>
