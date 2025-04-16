@@ -18,7 +18,6 @@ export async function GET() {
   }
 
   try {
-    // Verificar o JWT
     const { payload } = await jwtVerify(
       token,
       new TextEncoder().encode(process.env.JWT_SECRET)
@@ -26,7 +25,6 @@ export async function GET() {
 
     await connectToDatabase();
 
-    // Buscar as refeições associadas ao usuário
     const meals = await Meal.find({ user: payload.id });
 
     return NextResponse.json({ data: meals });
@@ -55,8 +53,7 @@ export async function POST(request: Request) {
       new TextEncoder().encode(process.env.JWT_SECRET)
     );
 
-    // Verificar se o usuário existe no banco
-    const user = await User.findById(payload.id); // Buscando o usuário pelo ID
+    const user = await User.findById(payload.id);
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
@@ -70,10 +67,8 @@ export async function POST(request: Request) {
 
     await connectToDatabase();
 
-    // Convertendo payload.id para um ObjectId válido
     const userId = new mongoose.Types.ObjectId(payload.id as string);
 
-    // Criando a refeição associada ao usuário
     const newMeal = await Meal.create({
       name,
       description: description || "",
@@ -83,7 +78,7 @@ export async function POST(request: Request) {
       time,
       image: image || "/placeholder.svg?height=200&width=400",
       isFavorite: isFavorite || false,
-      user: userId, // Garantindo que o user seja um ObjectId válido
+      user: userId,
     });
 
     return NextResponse.json(newMeal, { status: 201 });
@@ -111,7 +106,6 @@ export async function PUT(request: Request) {
   }
 
   try {
-    // Verificar o JWT
     const { payload } = await jwtVerify(
       token,
       new TextEncoder().encode(process.env.JWT_SECRET)
@@ -119,7 +113,6 @@ export async function PUT(request: Request) {
 
     await connectToDatabase();
 
-    // Buscar a refeição e verificar se pertence ao usuário
     const meal = await Meal.findById(_id);
 
     if (!meal) {
@@ -130,7 +123,6 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    // Atualizar refeição
     const updatedMeal = await Meal.findByIdAndUpdate(_id, updatedData, {
       new: true,
     });

@@ -1,15 +1,11 @@
 "use client"
 
-import { CheckCircle, ChevronRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { CheckCircle } from "lucide-react"
+import { useOnboarding } from "@/context/onboarding-context"
 
-interface CompletionStepProps {
-  formData: any
-  updateFormData?: (data: any) => void
-  onNext?: () => void
-}
+export default function CompletionStep() {
+  const { formData, nextStep } = useOnboarding()
 
-export default function CompletionStep({ formData, onNext }: CompletionStepProps) {
   return (
     <div className="flex flex-col items-center text-center">
       <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
@@ -30,13 +26,6 @@ export default function CompletionStep({ formData, onNext }: CompletionStepProps
             <li>Configure lembretes para manter o hábito</li>
           </ul>
         </div>
-
-        {onNext && (
-          <Button onClick={onNext} className="mt-4 w-full rounded-md chakra-button chakra-button-primary">
-            Ir para o Painel
-            <ChevronRight className="ml-2 h-4 w-4" />
-          </Button>
-        )}
       </div>
     </div>
   )

@@ -13,7 +13,7 @@ export default function HeroSection() {
               <span className="mr-2 rounded-full bg-primary px-1.5 py-0.5 text-xs font-medium text-primary-foreground">
                 Novidade
               </span>
-              <span className="text-xs font-medium">Agora com planejamento de refeições semanal</span>
+              <span className="text-xs font-medium">Agora você pode acompanhar sua sequência de dias saudáveis com o Streak!</span>
             </div>
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">

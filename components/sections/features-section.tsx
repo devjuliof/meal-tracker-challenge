@@ -21,19 +21,19 @@ export default function FeaturesSection() {
           <FeatureCard
             icon={<Utensils className="h-6 w-6 text-primary" />}
             title="Acompanhe suas Refeições"
-            description="Registre suas refeições com informações detalhadas, como calorias, macros e tipos de refeição."
+            description="Registre suas refeições com informações detalhadas, como calorias e tipos de refeição."
             iconBgClass="bg-primary/10"
           />
           <FeatureCard
             icon={<CalendarCheck className="h-6 w-6 text-secondary" />}
             title="Visão Geral Diária"
-            description="Tenha uma visão clara da sua alimentação diária com detalhes e resumos completos."
+            description="Acompanhe tudo o que você consumiu no dia e mantenha sua alimentação sob controle."
             iconBgClass="bg-secondary/10"
           />
           <FeatureCard
             icon={<Clock className="h-6 w-6 text-accent" />}
-            title="Planejamento de Refeições"
-            description="Planeje suas refeições com antecedência e conquiste seus objetivos nutricionais sem sair do foco."
+            title="Desafie-se a manter sua sequência saudável"
+            description="Cada refeição conta. Planeje, registre e acumule streaks que mostram seu compromisso com a saúde."
             iconBgClass="bg-accent/10"
           />
         </div>

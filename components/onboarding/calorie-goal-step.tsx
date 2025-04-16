@@ -1,25 +1,24 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
-import { Activity, Flame, Info } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Activity, Flame } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { ActivityLevelEnum, GenderEnum } from "@/lib/models/User"
+import { useOnboarding } from "@/context/onboarding-context"
 
-interface CalorieGoalStepProps {
-  formData: any
-  updateFormData: (data: any) => void
-  onNext?: () => void
-}
+export default function CalorieGoalStep() {
+  const { formData, updateFormData } = useOnboarding()
 
-export default function CalorieGoalStep({ formData, updateFormData, onNext }: CalorieGoalStepProps) {
   const [goalType, setGoalType] = useState(formData.goalType || "recommended")
-  const [activityLevel, setActivityLevel] = useState<ActivityLevelEnum>(ActivityLevelEnum.MODERATE)
+  const [activityLevel, setActivityLevel] = useState<ActivityLevelEnum>(
+    formData.activityLevel || ActivityLevelEnum.MODERATE,
+  )
   const [customCalories, setCustomCalories] = useState(formData.dailyCalorieGoal?.toString() || "2000")
   const [recommendedCalories, setRecommendedCalories] = useState(2000)
-  const [gender, setGender] = useState<GenderEnum>(GenderEnum.FEMALE)
+  const [gender, setGender] = useState<GenderEnum>(formData.gender || GenderEnum.FEMALE)
   const [age, setAge] = useState(formData.age || 30)
   const [weight, setWeight] = useState(formData.weight || 70)
   const [height, setHeight] = useState(formData.height || 170)
@@ -56,7 +55,7 @@ export default function CalorieGoalStep({ formData, updateFormData, onNext }: Ca
     setRecommendedCalories(Math.round(tdee))
   }, [gender, age, weight, height, activityLevel])
 
-  const updateParentFormData = useCallback(() => {
+  useEffect(() => {
     const calorieGoal = goalType === "custom" ? Number.parseInt(customCalories) : recommendedCalories
     updateFormData({
       goalType,
@@ -68,10 +67,6 @@ export default function CalorieGoalStep({ formData, updateFormData, onNext }: Ca
       height,
     })
   }, [goalType, activityLevel, customCalories, recommendedCalories, gender, age, weight, height, updateFormData])
-
-  useEffect(() => {
-    updateParentFormData()
-  }, [updateParentFormData])
 
   return (
     <div className="space-y-6">
@@ -131,7 +126,6 @@ export default function CalorieGoalStep({ formData, updateFormData, onNext }: Ca
               max="100"
               value={age}
               onChange={(e) => setAge(Number.parseInt(e.target.value))}
-              className="chakra-input"
             />
           </div>
           <div>
@@ -145,7 +139,6 @@ export default function CalorieGoalStep({ formData, updateFormData, onNext }: Ca
               max="200"
               value={weight}
               onChange={(e) => setWeight(Number.parseInt(e.target.value))}
-              className="chakra-input"
             />
           </div>
           <div>
@@ -159,7 +152,6 @@ export default function CalorieGoalStep({ formData, updateFormData, onNext }: Ca
               max="220"
               value={height}
               onChange={(e) => setHeight(Number.parseInt(e.target.value))}
-              className="chakra-input"
             />
           </div>
         </div>
@@ -172,6 +164,9 @@ export default function CalorieGoalStep({ formData, updateFormData, onNext }: Ca
 
             <TooltipProvider>
               <Tooltip>
+                <TooltipTrigger>
+                  <Flame className="h-4 w-4" />
+                </TooltipTrigger>
                 <TooltipContent>
                   <p className="max-w-xs text-xs">
                     Sedentário: pouco ou nenhum exercício
@@ -279,7 +274,7 @@ export default function CalorieGoalStep({ formData, updateFormData, onNext }: Ca
                   max="4000"
                   value={customCalories}
                   onChange={(e) => setCustomCalories(e.target.value)}
-                  className="chakra-input w-24"
+                  className="w-24"
                 />
                 <span className="ml-2 text-sm text-gray-500">kcal</span>
               </div>

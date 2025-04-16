@@ -24,7 +24,6 @@ export async function POST(req: Request) {
   const hashedPassword = await bcrypt.hash(password, 10);
   const newUser = await User.create({ name, email, password: hashedPassword });
 
-  // Gerar o token após o usuário ser criado
   const token = jwt.sign(
     { id: newUser._id, name: newUser.name, email: newUser.email },
     JWT_SECRET,
@@ -33,20 +32,17 @@ export async function POST(req: Request) {
     }
   );
 
-  // Criar a resposta com o token configurado no cookie
   const response = NextResponse.json({
     message: "User created",
     userId: newUser._id,
   });
 
-  // Configurar o cookie com o token
   response.cookies.set("token", token, {
-    httpOnly: true, // Garante que o cookie não pode ser acessado via JavaScript
-    secure: process.env.NODE_ENV === "production", // Define como 'true' em produção
-    sameSite: "strict", // Corrigido para 'strict' em minúsculas
-    maxAge: 7 * 24 * 60 * 60, // Define a validade do cookie (7 dias)
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 7 * 24 * 60 * 60,
   });
 
-  // Agora, o usuário será autenticado automaticamente após o registro e o redirecionamento para o dashboard será possível.
   return response;
 }

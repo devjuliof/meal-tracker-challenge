@@ -37,6 +37,10 @@ const UserSchema = new mongoose.Schema({
     ],
     required: false,
   },
+  profileUrl: {
+    type: String,
+    required: false,
+  },
 });
 
 export function getUserModel() {

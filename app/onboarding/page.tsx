@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 import OnboardingContainer from "@/components/onboarding/onboarding-container"
 import WelcomeStep from "@/components/onboarding/welcome-step"
@@ -16,10 +15,10 @@ export default function OnboardingPage() {
   const handleOnboardingComplete = async (data: any) => {
     await UsersService.updateUser(data)
 
-    toast.success('Configuração concluída! Suas preferências foram salvas com sucesso.', {
+    toast.success("Configuração concluída! Suas preferências foram salvas com sucesso.", {
       duration: 3000,
-      position: 'bottom-center',
-    });
+      position: "bottom-center",
+    })
 
     router.push("/dashboard")
   }
@@ -27,9 +26,9 @@ export default function OnboardingPage() {
   return (
     <OnboardingContainer onComplete={handleOnboardingComplete}>
       <WelcomeStep />
-      <CalorieGoalStep formData={{}} updateFormData={() => { }} />
-      <PreferencesStep formData={{}} updateFormData={() => { }} />
-      <CompletionStep formData={{}} />
+      <CalorieGoalStep />
+      <PreferencesStep />
+      <CompletionStep />
     </OnboardingContainer>
   )
 }

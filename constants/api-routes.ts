@@ -6,6 +6,7 @@ export const apiRoutes = {
 
   // Users
   updateUser: () => `/api/users`,
+  getUserData: () => `/api/users`,
 
   // Me
   me: () => `/api/me`,

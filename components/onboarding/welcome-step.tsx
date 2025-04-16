@@ -1,27 +1,66 @@
-import { Utensils } from "lucide-react"
+"use client"
 
-interface WelcomeStepProps {
-  formData?: any
-  updateFormData?: (data: any) => void
-  onNext?: () => void
-}
+import { useState, useEffect } from "react"
+import { Clock } from "lucide-react"
+import { Label } from "@/components/ui/label"
+import { Switch } from "@/components/ui/switch"
+import { useOnboarding } from "@/context/onboarding-context"
 
-export default function WelcomeStep({ onNext }: WelcomeStepProps) {
+export default function PreferencesStep() {
+  const { formData, updateFormData } = useOnboarding()
+
+  const [reminders, setReminders] = useState(formData.reminders || false)
+  const [reminderTime, setReminderTime] = useState(formData.reminderTime || "19:00")
+  const [weeklyReport, setWeeklyReport] = useState(formData.weeklyReport || true)
+
+  useEffect(() => {
+    updateFormData({
+      reminders,
+      reminderTime,
+      weeklyReport,
+    })
+  }, [reminders, reminderTime, weeklyReport, updateFormData])
+
   return (
-    <div className="flex flex-col items-center text-center">
-      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-        <Utensils className="h-8 w-8 text-primary" />
+    <div className="space-y-6">
+      <div className="text-center">
+        <h2 className="mb-2 text-2xl font-bold">Preferências</h2>
+        <p className="text-gray-600">Personalize sua experiência com o Controle de Refeições.</p>
       </div>
-      <h2 className="mb-2 text-2xl font-bold">Bem-vindo ao MealTracker!</h2>
-      <p className="mb-6 text-gray-600">
-        Vamos configurar algumas preferências para personalizar sua experiência. Isso levará apenas alguns minutos.
-      </p>
-      <div className="w-full space-y-4">
-        <div className="rounded-lg bg-blue-50 p-4 text-left">
-          <h3 className="mb-1 font-medium text-blue-700">Personalização completa</h3>
-          <p className="text-sm text-blue-600">
-            Configuraremos suas metas calóricas e preferências para ajudá-lo a alcançar seus objetivos de saúde.
-          </p>
+
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div className="space-y-0.5">
+            <Label className="text-base">Lembretes Diários</Label>
+            <p className="text-sm text-gray-500">Receba lembretes para registrar suas refeições</p>
+          </div>
+          <Switch checked={reminders} onCheckedChange={setReminders} />
+        </div>
+
+        {reminders && (
+          <div className="ml-6 space-y-2">
+            <Label htmlFor="reminder-time" className="text-sm">
+              Horário do lembrete
+            </Label>
+            <div className="flex items-center">
+              <Clock className="mr-2 h-4 w-4 text-gray-500" />
+              <input
+                type="time"
+                id="reminder-time"
+                value={reminderTime}
+                onChange={(e) => setReminderTime(e.target.value)}
+                className="rounded-md border border-gray-300 px-3 py-2 text-sm"
+              />
+            </div>
+          </div>
+        )}
+
+        <div className="flex items-center justify-between">
+          <div className="space-y-0.5">
+            <Label className="text-base">Relatório Semanal</Label>
+            <p className="text-sm text-gray-500">Receba um resumo semanal do seu progresso</p>
+          </div>
+          <Switch checked={weeklyReport} onCheckedChange={setWeeklyReport} />
         </div>
       </div>
     </div>

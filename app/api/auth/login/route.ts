@@ -39,13 +39,12 @@ export async function POST(req: Request) {
 
   const response = NextResponse.json({ message: "Login successful", token });
 
-  // Configura o cookie com o token
   response.cookies.set("token", token, {
-    httpOnly: true, // Garante que o cookie não pode ser acessado via JavaScript
-    secure: process.env.NODE_ENV === "production", // Define como 'true' em produção
-    sameSite: "strict", // Corrigido para 'strict' em minúsculas
-    maxAge: 7 * 24 * 60 * 60, // Define a validade do cookie (7 dias)
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 7 * 24 * 60 * 60,
   });
-
+  console.lo;
   return response;
 }

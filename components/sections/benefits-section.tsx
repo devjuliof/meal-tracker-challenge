@@ -51,8 +51,8 @@ export default function BenefitsSection() {
               />
               <BenefitCard
                 icon={<Utensils className="h-4 w-4 text-primary" />}
-                title="Variedade de Refeições"
-                description="Descubra opções de nutrição equilibrada"
+                title="Crie e registre suas refeições"
+                description="Anote o que você come, do seu jeito. Mantenha um histórico claro da sua alimentação diária."
                 iconBgClass="bg-primary/10"
               />
             </div>
