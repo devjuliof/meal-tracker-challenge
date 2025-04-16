@@ -78,6 +78,7 @@ export function useForm<T extends Record<string, any>>({
     errors,
     isSubmitting,
     generalError,
+    setGeneralError,
     handleChange,
     handleSubmit,
     reset,

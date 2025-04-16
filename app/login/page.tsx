@@ -36,11 +36,15 @@ export default function LoginPage() {
   }
 
   const handleLogin = async (values: LoginFormValues) => {
-    await AuthService.login(values)
+    const res = await AuthService.login(values)
+    if (res.error) {
+      setGeneralError('Email ou senha inválidos')
+      return;
+    }
     router.push("/dashboard")
   }
 
-  const { values, errors, isSubmitting, generalError, handleChange, handleSubmit } = useForm<LoginFormValues>({
+  const { values, errors, isSubmitting, generalError, handleChange, handleSubmit, setGeneralError } = useForm<LoginFormValues>({
     initialValues: { email: "", password: "" },
     validate: validateForm,
     onSubmit: handleLogin,
@@ -71,11 +75,6 @@ export default function LoginPage() {
             onChange={(value) => handleChange("password", value)}
             error={errors.password}
             required
-            rightElement={
-              <Link href="/forgot-password" className="text-sm text-primary hover:underline">
-                Esqueceu sua senha?
-              </Link>
-            }
           />
         </div>
 
